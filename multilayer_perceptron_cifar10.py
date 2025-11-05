@@ -4,7 +4,6 @@ from keras.datasets import cifar10
 from keras.models import Sequential
 from keras.layers import Flatten, Dense, Dropout
 from keras.utils import to_categorical
-from keras.callbacks import EarlyStopping, ModelCheckpoint
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -42,12 +41,6 @@ model.compile(
 
 model.summary()
 
-# 5. Callbacks
-callbacks = [
-    EarlyStopping(monitor="val_loss", patience=6, restore_best_weights=True),
-    ModelCheckpoint("mlp_cifar10_best.h5", save_best_only=True, monitor="val_loss"),
-]
-
 # 6. Train
 history = model.fit(
     x_train,
@@ -55,7 +48,6 @@ history = model.fit(
     validation_split=0.1,  # 10% of train as validation
     epochs=30,
     batch_size=128,
-    callbacks=callbacks,
     verbose=2,
 )
 
